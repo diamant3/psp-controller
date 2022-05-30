@@ -50,7 +50,5 @@ Just click psp-controller.ino then upload sketch
 - just for fun hehehe awit
 - this is a naive code, it uses http response to blink the esp8266(or just a substring hahah)
 
-you can improve this, but no further development happens to this repo and it's just for learning purposes, thank you
-
 ## License
 same as [pspsdk license](https://github.com/pspdev/pspsdk/blob/master/LICENSE) because mostly of the code are from their samples
