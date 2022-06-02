@@ -1,18 +1,24 @@
 # PSP-Controller
 
-use psp as a controller for esp8266 
+use psp to control built-in led of esp8266 
+
+## Controls
+
+- Button X - Off
+- Button O - On
 
 ## Directory guide
 
-- ESP8266 - .ino directory for esp8266
-- PSP-Controller - .c source directory for psp-controller 
+- ESP8266 - arduino sketch (.ino)
+- PSP-Controller - C source file (.c)
 
 ## Building - PSP-Controller
 
-*Recommended OS/platform: Linux or WSL(Windows)*
+> **Note**
+> Use Linux or Windows(WSL) - Latest Ubuntu
 
 **REQUIRED**
-- [pspsdk](github.com/pspdev/pspsdk)
+- [pspsdk](https://github.com/pspdev/pspdev) - instruction guide installing pspsdk
 - make
 
 run to build:
@@ -21,16 +27,21 @@ run to build:
 make
 ```
 
+psp directory: 
+
 ```
---> PSP
-     L--> GAME
-         L--> <DIRECTORY NAME>
-               L--> EBOOT.PBP
+-->PSP
+    L--> GAME
+           L--> <FOLDER>
+                    L--> EBOOT.PBP
 ```
 
-> DIRECTORY NAME - Need to create first a folder before putting the EBOOT.PBP in GAME directory.
+**FOLDER** -> Create a folder then put the ```EBOOT.PBP``` inside.
 
 ## Building - ESP8266
+
+> **Note**
+> Use Windows
 
 **REQUIRED**
 
@@ -38,17 +49,22 @@ make
 - [Nodemcu ESP8266 installation](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/)
 - [Learn how to program esp8266](https://www.instructables.com/Getting-Started-With-ESP8266LiLon-NodeMCU-V3Flashi/)
 
-Just click psp-controller.ino then upload sketch
+Upload the ```psp-controller.ino``` sketch using Arduino IDE.
 
 ## Credits
 
-[PSPDEV](github.com/pspdev)
+[PSPDEV](https://github.com/pspdev/)
 
 ## Bugs
-- need to wait for 5-10 seconds before pushing button
-- messy code and readme huhu :( 
-- just for fun hehehe awit
-- this is a naive code, it uses http response to blink the esp8266(or just a substring hahah)
+
+- need to wait for 5-10 seconds before pushing the button
+- messy code and readme
+- naive coding
+
+## Contribution
+
+Open to any type of contributions, thanks!
 
 ## License
-same as [pspsdk license](https://github.com/pspdev/pspsdk/blob/master/LICENSE) because mostly of the code are from their samples
+
+[PSPSDK License](https://github.com/pspdev/pspsdk/blob/master/LICENSE)
