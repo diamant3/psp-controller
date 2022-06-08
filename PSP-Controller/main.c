@@ -11,74 +11,143 @@
 #include <sys/socket.h>
 #include <string.h>
 
-#define print 	    pspDebugScreenPrintf
-#define MODULE_NAME "psp_controller"
+#define psp_print 	pspDebugScreenPrintf
+#define MODULE_NAME "psp-controller"
 #define PORT        80
 #define IP          "192.168.4.1"
 
-PSP_MODULE_INFO(MODULE_NAME, 0, 0, 1);
+PSP_MODULE_INFO(MODULE_NAME, 0, 0, 2);
 PSP_MAIN_THREAD_ATTR(0);
 
 int done = 0;
 
-int connect_ap(int connection) {
-	SetupExitCallback();
+int connect_ap(int access_point) {
+	int connection_state = 0;
+	int connection_state_previous = -1;
+	int running = 0;
+	int err = 0;
 
-	int err; 
-	int last_state = -1;
-
-	err = sceNetApctlConnect(connection);
-	if (err != 0) {
-		print(MODULE_NAME ": sceNetApctlConnect returns %08x\n", err);
-		return -1;
+	err = sceUtilityLoadNetModule(PSP_NET_MODULE_COMMON);
+	if (err != 0)
+	{
+		return err;
 	}
 
-	print(MODULE_NAME ": Connecting...\n");
-	while (1) {
-		int state;
+	err = sceUtilityLoadNetModule(PSP_NET_MODULE_INET);
+    if (err != 0)
+	{
+		return err;
+	}
 
-		err = sceNetApctlGetState(&state);
-		if (err != 0) {
-			print(MODULE_NAME ": sceNetApctlGetState returns $%x\n", err);
+	err = sceNetInit(65536, 32, 2048, 32, 2048);
+	if (err != 0)
+	{
+		return err;
+	}
+
+	err = sceNetInetInit();
+	if (err != 0)
+	{
+		return err;
+	}
+
+	err = sceNetApctlInit(0x2000, 20);
+	if (err != 0) 
+	{
+		return err;
+	}
+
+	do 
+	{
+		int conn_status = sceNetApctlConnect(access_point);
+		if (conn_status < 0)
+		{
+			psp_print(MODULE_NAME ": sceNetApctlConnect status %08x\n", conn_status);
+			running = 0;
+			break;
+		} 
+		else 
+		{
+			running = 1;
 			break;
 		}
 
-		if (state != last_state) {
-			print("Connection state %d of 4\n", state);
-			last_state = state;
-		}
+		psp_print(MODULE_NAME ": Connecting... | \n");
+		pspDebugScreenClear();
+		psp_print(MODULE_NAME ": Connecting... / \n");
+		pspDebugScreenClear();
+		psp_print(MODULE_NAME ": Connecting... -- \n");
+		pspDebugScreenClear();
+		psp_print(MODULE_NAME ": Connecting... \\ \n");
+		pspDebugScreenClear();
+	} while(1);
 
-		if (state == PSP_NET_APCTL_STATE_DISCONNECTED) {
-			continue;
-		}
+	while (running) 
+	{
 
-		if (state == PSP_NET_APCTL_STATE_GOT_IP) {
-			print(MODULE_NAME ": Connected!");
+		int status = sceNetApctlGetState(&connection_state);
+		if (status < 0) 
+		{
+			psp_print(MODULE_NAME ": sceNetApctlGetState status $%x\n", status);
 			break;
 		}
 
-		sceKernelDelayThread(50 * 1000); // 50ms
+		if (connection_state != connection_state_previous) 
+		{
+			switch (connection_state) 
+			{
+				case PSP_NET_APCTL_STATE_DISCONNECTED:
+					psp_print(MODULE_NAME ": DISCONNECTED!\n");
+				break;
+
+				case PSP_NET_APCTL_STATE_SCANNING:
+                	psp_print(MODULE_NAME ": SCANNING...\n"); 
+				break;
+
+            	case PSP_NET_APCTL_STATE_JOINING:
+                	psp_print(MODULE_NAME ": JOINING...\n"); 
+				break;
+
+            	case PSP_NET_APCTL_STATE_GETTING_IP:
+                	psp_print(MODULE_NAME ": OBTAINING IP ADDRESS...\n"); 
+				break;
+
+            	case PSP_NET_APCTL_STATE_GOT_IP:
+                	psp_print(MODULE_NAME ": CONNECTED!\n");
+					return 1;
+
+            	case PSP_NET_APCTL_STATE_EAP_AUTH:
+                	psp_print(MODULE_NAME ": AUTHENTICATING...\n");; 
+				break;
+
+            	case PSP_NET_APCTL_STATE_KEY_EXCHANGE:
+                	psp_print(MODULE_NAME ": EXCHANGING KEYS...\n"); 
+				break;
+			}
+
+			connection_state_previous = connection_state;
+		}
+
+		sceKernelDelayThread(500 * 1000); // 500ms
 	}
 
 	return 0;
 }
 
-int make_socket(uint16_t port) 
+int make_socket(unsigned short port) 
 {
-	int sock;
-	struct sockaddr_in name;
+	struct sockaddr_in server;
+	memset(&server, 0, sizeof (struct sockaddr_in));
+	server.sin_family = AF_INET;
+	server.sin_port = htons(port);
+	inet_pton(AF_INET, IP, &server.sin_addr.s_addr);
 
-	sock = sceNetInetSocket(PF_INET, SOCK_STREAM, 0);
+	int sock = sceNetInetSocket(PF_INET, SOCK_STREAM, 0);
 	if (sock < 0) {
-		return -1;
+		return sock;
 	}
 
-	memset(&name, 0, sizeof(struct sockaddr_in));
-	name.sin_family = AF_INET;
-	name.sin_port = htons(port);
-	inet_pton(AF_INET, IP, &name.sin_addr.s_addr);
-
-	sceNetInetConnect(sock, (struct sockaddr *) &name, sizeof(struct sockaddr_in));
+	sceNetInetConnect(sock, (struct sockaddr *) &server, sizeof server);
 
 	return sock;
 }
@@ -95,63 +164,68 @@ void cleanup()
 int ExitCallback(int arg1, int arg2, void *common)
 { 
 	done = 1;
+
     return 0; 
 } 
 
 int CallbackThread(SceSize args, void *argp)
 { 
-    int cbid; 
-    cbid = sceKernelCreateCallback("Exit Callback", ExitCallback, NULL); 
+    int cbid = sceKernelCreateCallback("Exit Callback", ExitCallback, NULL); 
+	if (cbid < 0)
+	{
+		return cbid;
+	}
     sceKernelRegisterExitCallback(cbid); 
-    sceKernelSleepThreadCB(); 
+    sceKernelSleepThreadCB();
+
     return 0; 
 } 
  
 int SetupExitCallback()
 { 
-    int thid = 0;
-    thid = sceKernelCreateThread("Callback Update Thread", CallbackThread, 0x11, 0xFA0, 0, 0); 
-    if(thid >= 0) { 
-        sceKernelStartThread(thid, 0, 0); 
+
+    int thid = sceKernelCreateThread("Callback Update Thread", CallbackThread, 0x11, 0xFA0, 0, 0); 
+    if(thid <= 0) 
+	{ 
+        return thid;
     } 
+
+	sceKernelStartThread(thid, 0, 0); 
     return thid; 
 }
 
-int main(void) 
+int main(int argc, char *argv[]) 
 {
-	int sock;
+	int sock = 0;
 	SceCtrlData pad;
-	char led_on[] = "GET /LEDOn HTTP/1.1\r\nHost: " IP "\r\nContent-Type: text/plain\r\n\r\n";
-	char led_off[] = "GET /LEDOff HTTP/1.1\r\nHost: " IP "\r\nContent-Type: text/plain\r\n\r\n";
-
 
 	pspDebugScreenInit();
 	SetupExitCallback();
-
-	sceUtilityLoadNetModule(PSP_NET_MODULE_COMMON);
-    sceUtilityLoadNetModule(PSP_NET_MODULE_INET);
-
-	sceNetInit(64 * 1024, 32, 2 * 1024, 32, 2 * 1024);
-	sceNetInetInit();
-	sceNetApctlInit(0x2000, 20);
 
 	connect_ap(1);
 	sock = make_socket(PORT);
 	
 	pspDebugScreenClear();
-	print("PSP->ESP8266 Controller v0.1 - github.com/diamant3");
-	while(!done) {
+	psp_print(MODULE_NAME ": github.com/diamant3");
+	while(!done) 
+	{
 		pspDebugScreenSetXY(0, 2);
 		sceCtrlReadBufferPositive(&pad, 1); 
 
-		if (pad.Buttons != 0){
-			if (pad.Buttons & PSP_CTRL_CIRCLE) {
-				print("LED ON! \n");
-				sceNetInetSend(sock, &led_on, sizeof(led_on) + 1, 0);
+		if (pad.Buttons != 0)
+		{
+			if (pad.Buttons & PSP_CTRL_CIRCLE) 
+			{
+				const char led_on[] = "GET /LEDOn\r\n";
+				psp_print("LED ON! \n");
+				sceNetInetSend(sock, led_on, strlen(led_on), 0);
 			} 
-			if (pad.Buttons & PSP_CTRL_CROSS) {
-				print("LED OFF! \n");
-				sceNetInetSend(sock, &led_off, sizeof(led_off) + 1, 0);
+
+			if (pad.Buttons & PSP_CTRL_CROSS) 
+			{
+				const char led_off[] = "GET /LEDOff\r\n";
+				psp_print("LED OFF! \n");
+				sceNetInetSend(sock, led_off, strlen(led_off), 0);
 			}         
 		}
 	}
@@ -159,6 +233,7 @@ int main(void)
 	sceNetInetClose(sock);
 	cleanup();
 	sceKernelExitGame();
+
 	return 0;
 }
 
