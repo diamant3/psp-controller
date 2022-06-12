@@ -58,8 +58,6 @@ Upload the ```psp-controller.ino``` sketch using Arduino IDE.
 ## Bugs
 
 - need to wait for 5-10 seconds before pushing the button
-- messy code and readme
-- naive coding
 
 ## Contribution
 

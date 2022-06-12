@@ -62,15 +62,15 @@ void main_code()
     if (client.available()) 
     {
       // get the sent data
-      header = client.readStringUntil('\r');
+      header = client.readStringUntil('\n');
 
-      if (header.indexOf("/LEDOff") >= 0) 
+      if (header.indexOf("0") >= 0) 
       {
         digitalWrite(LED, HIGH);
         Serial.println("OFF");
       } 
       
-      if (header.indexOf("/LEDOn") >= 0) 
+      if (header.indexOf("1") >= 0) 
       {
         digitalWrite(LED, LOW);
         Serial.println("ON");
