@@ -11,13 +11,8 @@ use psp to control built-in led of esp8266
 
 ## Directory guide
 
-<<<<<<< HEAD
 - psp-esp8266 - arduino sketch
 - psp-controller - C source file
-=======
-- psp-esp8266 - arduino sketch (.ino)
-- psp-controller - C source file (.c)
->>>>>>> ce10483849ca4d45a724f5170928720b7b671bb6
 
 ## Building
 
