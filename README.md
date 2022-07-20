@@ -1,47 +1,45 @@
-# PSP-Controller
+# psp-controller
 
-use psp to control built-in led of esp8266 
+use psp to control built-in led of esp8266
 
-## Controls
+[**CUSTOM PSP IS REQUIRED!**](https://revive.today/psp/cfw/)
 
-- Button X - Off
-- Button O - On
+## PSP Controls
+
+- Button ``X`` - Off state
+- Button ``O`` - On state
 
 ## Directory guide
 
-- ESP8266 - arduino sketch (.ino)
-- PSP-Controller - C source file (.c)
+- psp-esp8266 - arduino sketch
+- psp-controller - C source file
 
-## Building - PSP-Controller
+## Building
 
 > **Note**
-> Use Linux or Windows(WSL) - Latest Ubuntu
+> Use WSL2 or Ubuntu
+
+### psp-controller
 
 **REQUIRED**
-- [pspsdk](https://github.com/pspdev/pspdev) - instruction guide installing pspsdk
+- [PSPSDK installation guide](https://github.com/pspdev/pspdev)
 - make
 
 run to build:
 
 ```bash
-make
+cd psp-controller && make
 ```
 
-psp directory: 
+psp directory:
 
 ```
--->PSP
-    L--> GAME
-           L--> <FOLDER>
-                    L--> EBOOT.PBP
+PSP > GAME > PSP-CONTROLLER > EBOOT.PBP
 ```
 
-**FOLDER** -> Create a folder then put the ```EBOOT.PBP``` inside.
+> Create a folder named ``psp-controller`` then put the ``EBOOT.PBP`` inside.
 
-## Building - ESP8266
-
-> **Note**
-> Use Windows
+### psp-esp8266
 
 **REQUIRED**
 
@@ -49,20 +47,14 @@ psp directory:
 - [Nodemcu ESP8266 installation](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/)
 - [Learn how to program esp8266](https://www.instructables.com/Getting-Started-With-ESP8266LiLon-NodeMCU-V3Flashi/)
 
-Upload the ```psp-controller.ino``` sketch using Arduino IDE.
-
 ## Credits
 
 [PSPDEV](https://github.com/pspdev/)
 
-## Bugs
+## Bug
 
 - need to wait for 5-10 seconds before pushing the button
 
 ## Contribution
 
 Open to any type of contributions, thanks!
-
-## License
-
-[PSPSDK License](https://github.com/pspdev/pspsdk/blob/master/LICENSE)
