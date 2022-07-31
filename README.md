@@ -50,15 +50,15 @@ Download the arduino sketch file here [psp-esp8266](https://gist.github.com/diam
 Priority: 
 
 - [x] Usable controller for PSP to esp8266 - [Video Showcase](https://twitter.com/__diamant3/status/1531199473027670016?s=20&t=UiEpDK-PkNDVUV-hazLGkA)
-- [] Delay bug - *Need to wait for 5-10 seconds before pushing the ``O``/``X`` button*
+- [ ] Delay bug - *Need to wait for 5-10 seconds before pushing the ``O``/``X`` button*
 
 Optional:
 
 **Required a fix for the Delay bug before this**
 
-- [] Ready code for medium to large esp8266 projects
-- [] Compatible to any wifi enabled Microcontrollers
-- [] Become an Arduino/ESP8266 Libraries 
+- [ ] Ready code for medium to large esp8266 projects
+- [ ] Compatible to any wifi enabled Microcontrollers
+- [ ] Become an Arduino/ESP8266 Libraries 
 
 ## Contribution
 
