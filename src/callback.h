@@ -3,7 +3,7 @@
 
 int ExitCallback(int arg1, int arg2, void *common);
 int CallbackThread(SceSize args, void *argp);
-int SetupExitCallback();
+int SetupExitCallback(void);
 
 extern int done;
 
