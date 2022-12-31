@@ -42,7 +42,7 @@ If you don't want to build it on your own, you can download the `EBOOT.PBP` file
 
 **REQUIRED**
 
-- [Arduino software](https://www.arduino.cc/en/software)
+- [Arduino software](https://www.arduino.cc/en/software#future-version-of-the-arduino-ide)
 - [Nodemcu ESP8266 installation](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/)
 - [Learn how to program esp8266](https://www.instructables.com/Getting-Started-With-ESP8266LiLon-NodeMCU-V3Flashi/)
 
