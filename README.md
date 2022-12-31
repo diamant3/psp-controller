@@ -1,13 +1,14 @@
 # psp-controller
 
-Control the esp8266 with psp via a C raw socket.
+This small project can turn on and off the LED using the ESP8266 as a microcontroller, but
+It can be used for other purposes (e.g., controlling motors to build a simple robot) with little to medium modifications in the ESP8266 sketch file and C file.
 
 [**CUSTOM FIRMWARE PSP IS REQUIRED!**](https://revive.today/psp/cfw/)
 
 ## PSP Controls
 
-- Button ``X`` - Off state
-- Button ``O`` - On state
+- Button ``X`` - Off state of LED
+- Button ``O`` - On state of LED
 
 ## Building
 
