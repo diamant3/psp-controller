@@ -49,7 +49,7 @@ Download the arduino sketch file here [psp-esp8266](https://github.com/diamant3/
 
 ## Todo
 
-- [x] Usable controller for PSP to esp8266 - [Video Showcase](https://twitter.com/__diamant3/status/1609030769246343175?s=20&t=RkDNyktUGP9mrwhqDLX7kg) *outdated*
+- [x] Usable controller for PSP to esp8266 - [Video Showcase](https://twitter.com/__diamant3/status/1609030769246343175?s=20&t=RkDNyktUGP9mrwhqDLX7kg)
 - [x] Delay bug - *Need to wait for 5-10 seconds before pushing the ``O``/``X`` button*
 - [ ] PSP WiFi turn off automatically after 5-10 seconds :(
 
