@@ -26,6 +26,7 @@ void net_load(void) {
     sceNetApctlInit(0x2000, 0x14);
 }
 
+
 void net_unload(int sock) {
     sceNetInetClose(sock);
     sceNetApctlTerm();
@@ -35,107 +36,88 @@ void net_unload(int sock) {
     sceUtilityUnloadNetModule(PSP_NET_MODULE_INET);
 }
 
-void net_connect_ap(int ap) {
-    int connected = 0;
-    int prev_conn_state = 0;
-    int err = -1;
 
-    err = sceNetApctlConnect(ap);
-    if (err < 0) {
-        pspDebugScreenPrintf("sceNetApctlConnect Error: 0x%8x", err);
-    }
+void net_connect_ap(int index) {
+    int prev_conn_state = -1;
+    int ret = -1;
+    int conn_state = 0;
 
-    while (!connected) {
-        int conn_state = 0;
+    ret = sceNetApctlConnect(index);
+    if (ret < 0)
+        pspDebugScreenPrintf("sceNetApctlConnect Error: 0x%x", ret);
 
-        err = sceNetApctlGetState(&conn_state);
-        if (err < 0) {
-            pspDebugScreenPrintf("sceNetApctlGetState Error: %8x", err);
+    while (1) {
+        ret = sceNetApctlGetState(&conn_state);
+        if (ret < 0) {
+            pspDebugScreenPrintf("sceNetApctlGetState Error: %x", ret);
             break;
         }
 
         if (conn_state > prev_conn_state) {
-            pspDebugScreenPrintf("Connection state: %d/100%.\n", (conn_state * 20));
-            switch (conn_state) {
-                case PSP_NET_APCTL_STATE_GOT_IP:
-                    connected = 1;
-                break;
-            }
+            pspDebugScreenPrintf("connection state %d of 4\n", conn_state);
             prev_conn_state = conn_state;
         }
 
-        sceKernelDelayThread(1000 * 1000); // 1s
-        pspDebugScreenClear();
+        if (conn_state == PSP_NET_APCTL_STATE_GOT_IP) {
+            break;
+        }
+
+        sceKernelDelayThread(50 * 1000); // 50ms delay
     }
+
+    pspDebugScreenPrintf(MODULE_NAME ": Connected!\n\n");
 }
 
 int net_create_sock(unsigned short port) {
-    int sock = 0;
     struct sockaddr_in server;
-
-    sock = sceNetInetSocket(AF_INET, SOCK_STREAM, 0);
-    if (sock < 0) {
-        return sock;
-    }
+    int sock = sceNetInetSocket(AF_INET, SOCK_STREAM, 0);
 
     memset(&server, 0, sizeof(server));
+    server.sin_addr.s_addr = inet_addr(IP);
     server.sin_family = AF_INET;
     server.sin_port = htons(port);
-    inet_pton(AF_INET, IP, &server.sin_addr.s_addr);
-
     sceNetInetConnect(sock, (struct sockaddr *) &server, sizeof(server));
-    
+
     return sock;
 }
 
-void net_get_ip(void) {
-    union SceNetApctlInfo ip_info;
-    // Get IP address
-    if (sceNetApctlGetInfo(PSP_NET_APCTL_INFO_IP, &ip_info) < 0) {
-        pspDebugScreenPrintf("Status: NOT CONNECTED! \n\n");
-    } else {
-        pspDebugScreenPrintf("Status: CONNECTED!\n\n");
-    }
-}
-
 int main(void) {
-    pspDebugScreenInit();
+    SceCtrlData pad;
     SetupExitCallback();
     net_load();
-
-    int socket = 0;
-    SceCtrlData pad;
+    pspDebugScreenInit();
 
     net_connect_ap(1);
-    socket = net_create_sock(PORT);
-    net_get_ip();
+    int socket = net_create_sock(PORT);
 
-    char ON[] = "1\r\n\r\n";
-    char OFF[] = "0\r\n\r\n";
+    char ON[30] = "GET /led_on HTTP/1.0\r\n\r\n";
+    char OFF[30] = "GET /led_off HTTP/1.0\r\n\r\n";
 
     pspDebugScreenPrintf("==================================\n");
-    pspDebugScreenPrintf("psp-controller client\n");
+    pspDebugScreenPrintf("psp-controller-client\n");
     pspDebugScreenPrintf("github.com/diamant3/" MODULE_NAME "\n");
     pspDebugScreenPrintf("==================================\n");
 
-    while(!done) {
-        pspDebugScreenSetXY(0, 9);
+    sceCtrlSetSamplingCycle(0);
+    sceCtrlSetSamplingMode(PSP_CTRL_MODE_DIGITAL);
+
+    while(1) {
+        pspDebugScreenSetXY(0, 15);
         sceCtrlReadBufferPositive(&pad, 1);
 
         if (pad.Buttons != 0) {
             if (pad.Buttons & PSP_CTRL_CIRCLE) {
                 pspDebugScreenPrintf("LED Status:  ON\n");
-                sceNetInetSend(socket, &ON, sizeof(ON), 0);
+                sceNetInetSend(socket, ON, strlen(ON), 0);
             }
 
             if (pad.Buttons & PSP_CTRL_CROSS) {
                 pspDebugScreenPrintf("LED Status: OFF\n");
-                sceNetInetSend(socket, &OFF, sizeof(OFF), 0);
+                sceNetInetSend(socket, OFF, strlen(OFF), 0);
             }
         }
     }
 
     net_unload(socket);
-    sceKernelExitGame();
     return 0;
 }
