@@ -1,6 +1,6 @@
 # psp-controller
 
-use psp to control esp8266 through C raw socket
+Control the esp8266 with psp via a C raw socket.
 
 [**CUSTOM FIRMWARE PSP IS REQUIRED!**](https://revive.today/psp/cfw/)
 
