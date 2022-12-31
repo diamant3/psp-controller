@@ -14,7 +14,7 @@ use psp to control esp8266 through C raw socket
 > **Note**
 > Use WSL2 or Ubuntu
 
-### psp-controller
+### psp-controller(C file)
 
 **REQUIRED**
 
@@ -35,7 +35,7 @@ PSP > GAME > PSP-CONTROLLER > EBOOT.PBP
 
 > Create a folder named ``psp-controller`` then put the ``EBOOT.PBP`` inside.
 
-### psp-esp8266
+### psp-controller(ESP8266)
 
 **REQUIRED**
 
