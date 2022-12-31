@@ -43,7 +43,7 @@ PSP > GAME > PSP-CONTROLLER > EBOOT.PBP
 - [Nodemcu ESP8266 installation](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/)
 - [Learn how to program esp8266](https://www.instructables.com/Getting-Started-With-ESP8266LiLon-NodeMCU-V3Flashi/)
 
-Download the arduino sketch file here [psp-esp8266](https://gist.github.com/diamant3/74d8ecb0d56b62a36000a3f1879ec2b8)
+Download the arduino sketch file here [psp-esp8266](https://github.com/diamant3/psp-controller/blob/main/psp-controller.ino)
 
 ## Todo
 
