@@ -1,6 +1,6 @@
 # psp-controller
 
-use psp to control built-in led of esp8266 through C raw socket
+use psp to control esp8266 through C raw socket
 
 [**CUSTOM FIRMWARE PSP IS REQUIRED!**](https://revive.today/psp/cfw/)
 
