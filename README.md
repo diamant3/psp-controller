@@ -3,6 +3,10 @@
 This small project can turn on and off the LED using the ESP8266 as a microcontroller, but
 It can be used for other purposes (e.g., controlling motors to build a simple robot) with little to medium modifications in the ESP8266 sketch file and C file.
 
+## Video Demonstration
+
+https://user-images.githubusercontent.com/71203851/210231258-2ea60264-ba62-42f9-b278-e22711ffaea5.mp4
+
 [**CUSTOM FIRMWARE PSP IS REQUIRED!**](https://revive.today/psp/cfw/)
 
 ## PSP Controls
@@ -50,7 +54,7 @@ Download the arduino sketch file here [psp-esp8266](https://github.com/diamant3/
 
 ## Todo
 
-- [x] Usable controller for PSP to esp8266 - [Video Showcase](https://twitter.com/__diamant3/status/1609030769246343175?s=20&t=RkDNyktUGP9mrwhqDLX7kg)
+- [x] Usable controller for PSP to esp8266
 - [x] Delay bug - *Need to wait for 5-10 seconds before pushing the ``O``/``X`` button*
 - [ ] PSP WiFi turn off automatically after 5-10 seconds :(
 
