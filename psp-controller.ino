@@ -33,4 +33,5 @@ void loop() {
     digitalWrite(led, HIGH);
   else
     digitalWrite(led, LOW);
+  delay(1);
 }
