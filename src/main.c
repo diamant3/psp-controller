@@ -97,8 +97,8 @@ int main(void) {
         return 1;
     }
 
-    char ON[30] = "GET /led_on HTTP/1.0\r\n\r\n";
-    char OFF[30] = "GET /led_off HTTP/1.0\r\n\r\n";
+    char ON[30] = "GET /led_on HTTP/1.1\r\n\r\n";
+    char OFF[30] = "GET /led_off HTTP/1.1\r\n\r\n";
 
     pspDebugScreenPrintf("==================================\n");
     pspDebugScreenPrintf("psp-controller-client\n");
