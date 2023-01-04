@@ -38,45 +38,49 @@ void net_unload(int sock) {
 
 
 void net_connect_ap(int index) {
-    int prev_conn_state = -1;
-    int ret = -1;
-    int conn_state = 0;
-
-    ret = sceNetApctlConnect(index);
-    if (ret < 0)
+    int ret = sceNetApctlConnect(index);
+    if (ret < 0) {
         pspDebugScreenPrintf("sceNetApctlConnect Error: 0x%x", ret);
+        return;
+    }
 
+    int conn_state;
     while (1) {
         ret = sceNetApctlGetState(&conn_state);
         if (ret < 0) {
             pspDebugScreenPrintf("sceNetApctlGetState Error: %x", ret);
-            break;
-        }
-
-        if (conn_state > prev_conn_state) {
-            pspDebugScreenPrintf("connection state %d of 4\n", conn_state);
-            prev_conn_state = conn_state;
+            return;
         }
 
         if (conn_state == PSP_NET_APCTL_STATE_GOT_IP) {
             break;
         }
 
-        sceKernelDelayThread(50 * 1000); // 50ms delay
+        sceKernelDelayThread(500 * 1000); // 500ms delay
     }
 
+    sceKernelDelayThread(500 * 1000); // 500ms delay
     pspDebugScreenPrintf(MODULE_NAME ": Connected!\n\n");
 }
 
-int net_create_sock(unsigned short port) {
+int net_create_sock(const char *ip, unsigned short port) {
     struct sockaddr_in server;
     int sock = sceNetInetSocket(AF_INET, SOCK_STREAM, 0);
+    if (sock < 0) {
+        pspDebugScreenPrintf("sceNetInetSocket Error.");
+        return -1;
+    }
 
     memset(&server, 0, sizeof(server));
-    server.sin_addr.s_addr = inet_addr(IP);
+    server.sin_addr.s_addr = inet_addr(ip);
     server.sin_family = AF_INET;
     server.sin_port = htons(port);
-    sceNetInetConnect(sock, (struct sockaddr *) &server, sizeof(server));
+    int ret = sceNetInetConnect(sock, (struct sockaddr *) &server, sizeof(server));
+    if (ret < 0) {
+        pspDebugScreenPrintf("sceNetInetConnect Error.");
+        sceNetInetClose(sock);
+        return -1;
+    }
 
     return sock;
 }
@@ -88,7 +92,10 @@ int main(void) {
     pspDebugScreenInit();
 
     net_connect_ap(1);
-    int socket = net_create_sock(PORT);
+    int socket = net_create_sock(IP, PORT);
+    if (socket < 0) {
+        return 1;
+    }
 
     char ON[30] = "GET /led_on HTTP/1.0\r\n\r\n";
     char OFF[30] = "GET /led_off HTTP/1.0\r\n\r\n";
@@ -101,9 +108,13 @@ int main(void) {
     sceCtrlSetSamplingCycle(0);
     sceCtrlSetSamplingMode(PSP_CTRL_MODE_DIGITAL);
 
-    while(1) {
+    while (1) {
         pspDebugScreenSetXY(0, 15);
-        sceCtrlReadBufferPositive(&pad, 1);
+        int ret = sceCtrlReadBufferPositive(&pad, 1);
+        if (ret < 0) {
+            pspDebugScreenPrintf("sceCtrlReadBufferPositive Error: %x", ret);
+            break;
+        }
 
         if (pad.Buttons != 0) {
             if (pad.Buttons & PSP_CTRL_CIRCLE) {
