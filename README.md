@@ -23,7 +23,7 @@ https://user-images.githubusercontent.com/71203851/210231258-2ea60264-ba62-42f9-
 
 **REQUIRED**
 
-- [PSPSDK Installation Guide](https://github.com/pspdev/pspdev)
+- [PSPDEV Main Website ](https://pspdev.github.io/)(*PSPSDK Installation guide and PSP apps/games programming examples here*.)
 - Make
 
 run to build:
