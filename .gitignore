@@ -1,3 +1,6 @@
 *.SFO
 *.elf
 *.o
+
+# vscode
+.vscode/
