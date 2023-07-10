@@ -23,14 +23,17 @@ https://user-images.githubusercontent.com/71203851/210231258-2ea60264-ba62-42f9-
 
 **REQUIRED**
 
-- [PSPDEV Main Website ](https://pspdev.github.io/)(*PSPSDK Installation guide and PSP apps/games programming examples here*.)
-- Make
+- [PSPDEV Main Website](https://pspdev.github.io/)(*PSPSDK Installation guide and PSP apps/games programming examples here*.)
+- CMake(psp-cmake)
 
 run to build:
 
 ```bash
-cd psp-controller/src/ && make
+mkdir build && cd build
+psp-cmake ..
+make
 ```
+> Check `build` directory for pre compiled EBOOT.PBP
 
 psp directory:
 
