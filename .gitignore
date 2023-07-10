@@ -1,6 +1,5 @@
-*.SFO
-*.elf
-*.o
+build/*
+!EBOOT.PBP
 
 # vscode
 .vscode/
