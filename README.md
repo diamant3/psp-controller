@@ -43,8 +43,6 @@ PSP > GAME > PSP-CONTROLLER > EBOOT.PBP
 
 > Create a folder named ``psp-controller`` then put the ``EBOOT.PBP`` inside.
 
-If you don't want to build it on your own, you can download the `EBOOT.PBP` file here [psp-controller](https://github.com/diamant3/psp-controller/blob/main/src/EBOOT.PBP)
-
 ### psp-controller(ESP8266)
 
 **REQUIRED**
