@@ -53,12 +53,6 @@ PSP > GAME > PSP-CONTROLLER > EBOOT.PBP
 
 Download the arduino sketch file here [psp-esp8266](https://github.com/diamant3/psp-controller/blob/main/psp-controller.ino)
 
-## Todo
-
-- [x] Usable controller for PSP to esp8266
-- [x] Delay bug - *Need to wait for 5-10 seconds before pushing the ``O``/``X`` button*
-- [ ] When PSP buttons are not used, the LED has some delay in turning on or off. :(
-
 ## Contribution
 
 Open to any type of contributions, i have Todo section if you want to take, thanks!
