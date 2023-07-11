@@ -55,7 +55,7 @@ Download the arduino sketch file here [psp-esp8266](https://github.com/diamant3/
 
 ## Contribution
 
-Open to any type of contributions, i have Todo section if you want to take, thanks!
+I'm open to any type of contribution. I have issues if you want to take them. Thanks!
 
 ## Credits
 
