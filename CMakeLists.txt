@@ -5,6 +5,8 @@ add_executable(
     ${PROJECT_NAME} 
     src/main.c
     src/callback.c
+    src/connection.c
+    src/psp_modules.c
 )
 
 target_link_libraries(
