@@ -33,6 +33,8 @@ int get_conn_state(int index)
     pspDebugScreenPrintf(MODULE_NAME ": Connected!\n\n");
     sceKernelDelayThread(FULL_DELAY);
     pspDebugScreenClear();
+
+    return ret;
 }
 
 // create a socket
@@ -46,7 +48,7 @@ int create_sock(void)
 }
 
 // connect to server
-int connect_ap(int sock, const char *ip, unsigned int port)
+int connect_ap(int sock, const char *ip, unsigned short port)
 {
     int ret = get_conn_state(1);
     if (ret < 0) { return ret; }

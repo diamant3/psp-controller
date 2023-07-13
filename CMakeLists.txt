@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.0)
 project(psp-controller)
 
+add_compile_options(-Wall -Wextra -Werror -Wconversion)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD_REQUIRED On)
+set(CMAKE_C_EXTENSIONS Off)
 add_executable(
     ${PROJECT_NAME} 
     src/main.c

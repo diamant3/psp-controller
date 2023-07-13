@@ -22,14 +22,14 @@ int main(void)
     int socket = create_sock();
     if (socket < 0) 
     {
-        pspDebugScreenPrintf("create_sock() - Error: %s", socket);
+        pspDebugScreenPrintf("create_sock() - Error: %d", socket);
         return -1;
     }
 
     int ret = connect_ap(socket, IP, PORT);
     if (ret < 0) 
     {
-        pspDebugScreenPrintf("connect_ap() - Error: %s", ret);
+        pspDebugScreenPrintf("connect_ap() - Error: %d", ret);
         return -1;
     }
 
@@ -47,7 +47,7 @@ int main(void)
 
     while (1) 
     {
-        pspDebugScreenSetXY(0, 6);
+        pspDebugScreenSetXY(0, 5);
         sceCtrlReadBufferPositive(&pad, 1);
 
         if (pad.Buttons != 0) 

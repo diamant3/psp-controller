@@ -4,12 +4,17 @@
 
 /* Exit callback */
 int ExitCallback(int arg1, int arg2, void *common) {
+	(void)arg1;
+	(void)arg2;
+	(void)common;
     sceKernelExitGame();
 	return 0;
 }
 
 /* Callback thread */
 int CallbackThread(SceSize args, void *argp) {
+	(void)args;
+	(void)argp;
 	int cbid;
 
 	cbid = sceKernelCreateCallback("Exit Callback", ExitCallback, NULL);

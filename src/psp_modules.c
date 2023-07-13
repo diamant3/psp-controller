@@ -1,3 +1,4 @@
+#include <pspnet.h>
 #include <pspnet_inet.h>
 #include <pspnet_apctl.h>
 #include <psputility.h>
