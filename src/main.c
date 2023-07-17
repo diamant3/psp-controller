@@ -64,6 +64,8 @@ int main(void)
                 sceNetInetSend(socket, &OFF, strlen(OFF), 0);
             }
         }
+
+        sceKernelDelayThread(1000);
     }
 
     unload_netmodule(socket);
