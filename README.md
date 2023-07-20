@@ -1,11 +1,16 @@
 # psp-controller
 
-This small project can turn on and off the LED using the ESP8266 as a microcontroller, but
-It can be used for other purposes (e.g., controlling motors to build a simple robot) with little to medium modifications in the ESP8266 sketch file and C file.
+## Introduction
+
+psp-controller is just a prototype and inspired from the project of [iketsj's PSP Robot Controller](https://www.youtube.com/watch?v=do1674d6Rbo). 
+
+I want to try his project, but there's no source code available. That's why I decided to create it on my own and make it open-source for others to learn from and modify on their own for those who want to try it.
 
 ## Video Demonstration
 
 https://user-images.githubusercontent.com/71203851/210231258-2ea60264-ba62-42f9-b278-e22711ffaea5.mp4
+
+> The video is about the PlayStation Portable (PSP), which can turn on and off the LED connected to the ESP8266.
 
 [**CUSTOM FIRMWARE PSP IS REQUIRED!**](https://revive.today/psp/cfw/)
 
