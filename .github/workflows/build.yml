@@ -2,6 +2,8 @@ name: Build
 
 on:
   push:
+    tags:
+      - "v*"
   pull_request:
     branches: main
 
@@ -30,5 +32,3 @@ jobs:
           files: |
             SHA.txt
             EBOOT.PBP
-        env:
-          GITHUB_REPOSITORY: diamant3/psp-controller
