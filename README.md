@@ -24,12 +24,13 @@ https://user-images.githubusercontent.com/71203851/210231258-2ea60264-ba62-42f9-
 > **Note**
 > Use WSL2 or Ubuntu
 
-### psp-controller(C file)
+### `src` directory
 
 **REQUIRED**
 
 - [PSPDEV Main Website](https://pspdev.github.io/)(*PSPSDK Installation guide and PSP apps/games programming examples here*.)
 - CMake(psp-cmake)
+- Make
 
 run to build:
 
@@ -38,17 +39,17 @@ mkdir build && cd build
 psp-cmake ..
 make
 ```
-> Check `build` directory for pre compiled EBOOT.PBP
+> Check [Releases](https://github.com/diamant3/psp-controller/releases) for the latest pre compiled EBOOT.PBP
 
 psp directory:
 
 ```
-PSP > GAME > PSP-CONTROLLER > EBOOT.PBP
+ms0:/PSP/GAME/<foldername>/EBOOT.PBP
 ```
 
-> Create a folder named ``psp-controller`` then put the ``EBOOT.PBP`` inside.
+> `<foldername>` is an arbitrary name and put the EBOOT.PBP inside
 
-### psp-controller(ESP8266)
+### `psp-controller` directory
 
 **REQUIRED**
 
@@ -56,7 +57,7 @@ PSP > GAME > PSP-CONTROLLER > EBOOT.PBP
 - [Nodemcu ESP8266 installation](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/)
 - [Learn how to program esp8266](https://www.instructables.com/Getting-Started-With-ESP8266LiLon-NodeMCU-V3Flashi/)
 
-Download the arduino sketch file here [psp-esp8266](https://github.com/diamant3/psp-controller/blob/main/psp-controller.ino)
+Download the arduino sketch file here [psp-esp8266](https://github.com/diamant3/psp-controller/blob/main/psp-controller/psp-controller.ino)
 
 ## Contribution
 
