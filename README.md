@@ -1,5 +1,8 @@
 # psp-controller
 
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/diamant3/psp-controller/build.yml)
+![GitHub all releases](https://img.shields.io/github/downloads/diamant3/psp-controller/total)
+
 ## Introduction
 
 psp-controller is just a prototype and inspired from the project of [iketsj's PSP Robot Controller](https://www.youtube.com/watch?v=do1674d6Rbo). 
