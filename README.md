@@ -1,7 +1,8 @@
 # psp-controller
 
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/diamant3/psp-controller/build.yml)
-![GitHub release (by tag)](https://img.shields.io/github/downloads/diamant3/psp-controller/latest/total)
+
+[![Downloads](https://img.shields.io/github/downloads/diaman3/psp-controller/total.svg "Downloads")](https://github.com/diamant3/psp-controller/releases)
 
 ## Introduction
 
