@@ -18,8 +18,7 @@ jobs:
 
       - name: Build EBOOT.PBP
         run: |
-          cd build
-          psp-cmake ..
+          psp-cmake .
           make -j $(getconf _NPROCESSORS_ONLN)
           echo ${{github.sha}} > SHA.txt
 
@@ -32,4 +31,4 @@ jobs:
           title: "psp-controller"
           files: |
             SHA.txt
-            build/EBOOT.PBP
+            EBOOT.PBP
