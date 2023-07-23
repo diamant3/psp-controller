@@ -29,5 +29,5 @@ jobs:
           prerelease: false
           title: "psp-controller"
           files: |
-            SHA.txt
+            build/SHA.txt
             build/EBOOT.PBP
