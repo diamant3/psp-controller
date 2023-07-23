@@ -29,6 +29,7 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           draft: true
+          prerelease: false
           title: "psp-controller build"
           files: |
             SHA.txt
