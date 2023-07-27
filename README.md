@@ -12,7 +12,7 @@ I want to try his project, but there's no source code available. That's why I de
 
 ## Video Demonstration
 
-https://user-images.githubusercontent.com/71203851/210231258-2ea60264-ba62-42f9-b278-e22711ffaea5.mp4
+https://github.com/diamant3/psp-controller/assets/71203851/8f25e59e-b11e-4d7e-b2d6-7286f4b058bc
 
 > The video is about the PlayStation Portable (PSP), which can turn on and off the LED connected to the ESP8266.
 
