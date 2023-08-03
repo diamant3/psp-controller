@@ -1,8 +1,7 @@
 # psp-controller
 
 ![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/diamant3/psp-controller/build.yml)
-
-[![Github All Releases](https://img.shields.io/github/downloads/diamant3/psp-controller/total.svg)]()
+![GitHub all releases](https://img.shields.io/github/downloads/diamant3/psp-controller/total)
 
 ## Introduction
 
@@ -16,14 +15,14 @@ https://github.com/diamant3/psp-controller/assets/71203851/8f25e59e-b11e-4d7e-b2
 
 > The video is about the PlayStation Portable (PSP), which can turn on and off the LED connected to the ESP8266.
 
-[**CUSTOM FIRMWARE PSP IS REQUIRED!**](https://revive.today/psp/cfw/)
-
 ## PSP Controls
 
 - Button ``X`` - Off state of LED
 - Button ``O`` - On state of LED
 
 ## Building
+
+[**CUSTOMIZED FIRMWARE OF PSP IS REQUIRED!**](https://www.pspunk.com/psp-cfw/)
 
 > **Note**
 > Use WSL2 or Ubuntu
@@ -45,13 +44,15 @@ make
 ```
 > Check [Releases](https://github.com/diamant3/psp-controller/releases) for the latest pre compiled EBOOT.PBP
 
-psp directory:
+## Run
+
+Now connect your PSP to your Computer and copy the `EBOOT.PBP` to your PSP's directory like this:
 
 ```
-ms0:/PSP/GAME/<foldername>/EBOOT.PBP
+PSP/GAME/<dirname>/EBOOT.PBP
 ```
 
-> `<foldername>` is an arbitrary name and put the EBOOT.PBP inside
+> `<dirname>` is an arbitrary name and put the EBOOT.PBP inside
 
 ### `psp-controller` directory
 
