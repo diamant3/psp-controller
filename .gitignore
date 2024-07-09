@@ -1,5 +1,2 @@
-build/*
-!EBOOT.PBP
-
-# vscode
-.vscode/
+build
+.vscode
