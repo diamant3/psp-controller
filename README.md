@@ -10,6 +10,7 @@ I want to try his project, but there's no source code available. That's why I de
 ## Video Demonstration
 https://github.com/diamant3/psp-controller/assets/71203851/8f25e59e-b11e-4d7e-b2d6-7286f4b058bc
 
+> [!Note]
 > The video is about the PlayStation Portable (PSP), which can turn on and off the LED connected to the ESP8266.
 
 ## PSP Controls
@@ -17,10 +18,11 @@ https://github.com/diamant3/psp-controller/assets/71203851/8f25e59e-b11e-4d7e-b2
 - Button ``O`` - On state of LED
 
 ## Building
-> [!Note]
+
+> [!Tip]
 > Use WSL2 or Ubuntu
 
-### `src` directory
+### `main.c`
 Requirements:
 - [PSPDEV portal](https://pspdev.github.io/)
 - CMake(psp-cmake)
@@ -32,6 +34,7 @@ mkdir build && cd build
 psp-cmake ..
 make
 ```
+> [!Tip]
 > Check [Releases](https://github.com/diamant3/psp-controller/releases) for the latest pre compiled EBOOT.PBP
 
 ## Run
@@ -49,7 +52,7 @@ PSP/GAME/<dirname>/EBOOT.PBP
 
 > `<dirname>` is an arbitrary name and put the EBOOT.PBP inside
 
-### `psp-controller` directory
+### `main.ino`
 Requirements:
 - [Arduino software](https://www.arduino.cc/en/software#future-version-of-the-arduino-ide)
 - [Nodemcu ESP8266 installation](https://randomnerdtutorials.com/how-to-install-esp8266-board-arduino-ide/)
