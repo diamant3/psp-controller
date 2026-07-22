@@ -3,8 +3,12 @@ project(psp-controller)
 
 add_executable(
     ${PROJECT_NAME} 
-    main.c
+    src/main.c
+    src/callback.c
+    src/network.c
 )
+
+target_compile_options(${PROJECT_NAME} PRIVATE -Wall -Wextra)
 
 target_link_libraries(
     ${PROJECT_NAME} PRIVATE
