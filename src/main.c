@@ -17,6 +17,9 @@ int main(void) {
 
     SceCtrlData pad;
     int socket = init_network();
+    if (socket < 0) {
+        return -1;
+    }
     while (1) {
         pspDebugScreenSetXY(0, 4);
         sceCtrlReadBufferPositive(&pad, 1);

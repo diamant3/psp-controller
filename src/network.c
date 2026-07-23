@@ -56,13 +56,16 @@ int init_network(void) {
         return -1;
     }
 
-    connect_network(1);
+    ret = connect_network(1);
+    if (ret != 0) {
+        return -2;
+    }
 
     struct sockaddr_in name;
     memset(&name, 0, sizeof name);
 
     int s = socket(AF_INET, SOCK_STREAM, 0);
-    if (s < 0) { return -2; }
+    if (s < 0) { return -3; }
 
     name.sin_family = AF_INET;
     name.sin_port = htons(PORT);
@@ -70,7 +73,7 @@ int init_network(void) {
     inet_pton(AF_INET, IP_ADDRESS, &(name.sin_addr));
 
     ret = connect(s, (struct sockaddr *)&name, sizeof name);
-    if (ret < 0) { return -3; }
+    if (ret < 0) { return -4; }
 
     return s;
 }
