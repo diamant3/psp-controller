@@ -41,6 +41,8 @@ static int connect_network(int index) {
         if (state == PSP_NET_APCTL_STATE_GOT_IP) { break; }
         sceKernelDelayThread(50 * 1000); // 50ms
     }
+
+    return 0;
 }
 
 int init_network(void) {
